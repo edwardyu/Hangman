@@ -25,6 +25,7 @@ function check_guess($char, $word)
     $wordArray = str_split($word);
     $guessed_chars[] = $char;
     global $current_guess;
+
     if(strpos($word, $char) === false)
     {
        return false;
@@ -54,8 +55,10 @@ function play()
     global $words;
     global $wrong;
     global $wrong_limit;
+    global $guessed_chars;
     $wrong = 0;
     print "Welcome to Hangman!\n";
+    print "You have $wrong_limit attempts to guess the correct word.\n";
     print "The computer is choosing a word...\n\n";
     $word = choose_word($words);
     $guess = '';
@@ -63,7 +66,12 @@ function play()
     {
         print "Guess a character: ";
         $guess = trim(fgets(STDIN));
-        if(check_guess($guess, $word) == false)
+        if(in_array($guess, $guessed_chars))
+        {
+            print "You've already guessed this character!\n\n";
+            
+        }
+        else if(check_guess($guess, $word) == false)
         {
             $wrong++;
             print "You've made $wrong wrong guesses.\n\n";
@@ -82,7 +90,7 @@ function play()
         }
         else if(check_guess($guess, $word) == str_split($word))
         {
-            print "You've guessed it!\n\n";
+            print "You've guessed it! The word is $word\n\n";
             print "Play again? y/n \n";
             if(trim(fgets(STDIN)) != 'y')
             {
