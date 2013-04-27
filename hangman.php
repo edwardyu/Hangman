@@ -1,5 +1,6 @@
 <?php
 //load words from text file
+print "Loading word list...";
 $words = array();
 $handle = fopen('wordsEn.txt', 'r');
 $wrong = 0;
@@ -8,6 +9,8 @@ while(!feof($handle))
 {
     $words[] = trim(fgets($handle));
 }
+
+print sizeof($words) . " words loaded.\n\n";
 $guessed_chars = array();
 $current_guess = array();
 //print_r($words);
@@ -117,6 +120,7 @@ function play()
     $current_guess = array();
     print "Welcome to Hangman!\n";
     print "You have $wrong_limit attempts to guess the correct word.\n";
+    print "Press CTRL + C to quit, or type 'cheat' to have the computer suggest a character.\n";
     print "The computer is choosing a word...\n\n";
     $word = choose_word($words);
     $guess = '';
@@ -153,6 +157,7 @@ function play()
         }
         else if(check_guess($guess, $word) == str_split($word))
         {
+            print_r($current_guess);
             print "You've guessed it! The word is $word\n\n";
             print "Play again? y/n \n";
             if(trim(fgets(STDIN)) != 'y')
