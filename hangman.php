@@ -157,7 +157,15 @@ function play()
         }
         else if(check_guess($guess, $word) == str_split($word))
         {
-            print_r($current_guess);
+            //print_r($current_guess);
+            foreach(check_guess($guess, $word) as $char)
+            {
+                if($char == '')
+                    print "_ ";
+                else
+                    print $char . " ";
+            }
+            print "\n\n\n\n";
             print "You've guessed it! The word is $word\n\n";
             print "Play again? y/n \n";
             if(trim(fgets(STDIN)) != 'y')
@@ -169,7 +177,15 @@ function play()
         }
         else 
         {
-         print_r(check_guess($guess, $word));
+         //print_r(check_guess($guess, $word));
+            foreach(check_guess($guess, $word) as $char)
+            {
+                if($char == '')
+                    print "_ ";
+                else
+                    print $char . " ";
+            }
+            print "\n\n\n\n";
         }
 
     }
