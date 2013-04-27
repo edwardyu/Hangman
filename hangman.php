@@ -49,31 +49,56 @@ function check_guess($char, $word)
 }
 
 //main interface
-print "Welcome to Hangman!\n";
-print "The computer is choosing a word...\n\n\n";
-$word = choose_word($words);
-$guess = '';
-while(true)
+function play()
 {
-    print "Guess a character: ";
-    $guess = trim(fgets(STDIN));
-    if(check_guess($guess, $word) == false)
+    global $words;
+    global $wrong;
+    global $wrong_limit;
+    $wrong = 0;
+    print "Welcome to Hangman!\n";
+    print "The computer is choosing a word...\n\n";
+    $word = choose_word($words);
+    $guess = '';
+    while(true)
     {
-        $wrong++;
-        print "You've made $wrong wrong guesses.\n\n\n";
-        if($wrong == $wrong_limit)
+        print "Guess a character: ";
+        $guess = trim(fgets(STDIN));
+        if(check_guess($guess, $word) == false)
         {
-            print "Sorry, you lose! The correct word is $word.";
-            exit();
-            
+            $wrong++;
+            print "You've made $wrong wrong guesses.\n\n";
+            if($wrong == $wrong_limit)
+            {
+                print "Sorry, you lose! The correct word is $word.\n";
+                print "Play again? y/n \n";
+                if(trim(fgets(STDIN)) != 'y')
+                {
+                    exit();
+                }
+                else
+                    play();
+
+            }
         }
+        else if(check_guess($guess, $word) == str_split($word))
+        {
+            print "You've guessed it!\n\n";
+            print "Play again? y/n \n";
+            if(trim(fgets(STDIN)) != 'y')
+            {
+                exit();
+            }
+            else
+                play();
+        }
+        else 
+        {
+         print_r(check_guess($guess, $word));
+        }
+
     }
-    else 
-    {
-     print_r(check_guess($guess, $word));
-    }
-        
 }
 
+play();
 
 ?>
