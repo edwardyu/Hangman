@@ -57,6 +57,7 @@ function play()
     global $wrong_limit;
     global $guessed_chars;
     $wrong = 0;
+    $guessed_chars = array();
     print "Welcome to Hangman!\n";
     print "You have $wrong_limit attempts to guess the correct word.\n";
     print "The computer is choosing a word...\n\n";
