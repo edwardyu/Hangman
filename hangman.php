@@ -65,6 +65,7 @@ function cheat()
         $word = str_split($word);
         for($i = 0; $i < sizeof($word); $i++)
         {
+            
             if(!empty($current_guess[$i]) && $current_guess[$i] != $word[$i])
             {
                 $match = false;
@@ -100,11 +101,13 @@ function get_most_frequent_char($array)
     }
     
     natsort($frequency);
+    //print_r($frequency);
     end($frequency);
     while(in_array(key($frequency), $guessed_chars))
     {
         prev($frequency);
     }
+    
     return key($frequency);
 }
 //main interface
@@ -123,6 +126,12 @@ function play()
     print "Press CTRL + C to quit, or type 'cheat' to have the computer suggest a character.\n";
     print "The computer is choosing a word...\n\n";
     $word = choose_word($words);
+    
+    for($i = 0; $i < strlen($word); $i++)
+    {
+        print "_ ";
+    }
+    print "\n\n";
     $guess = '';
     while(true)
     {
