@@ -101,7 +101,7 @@ function get_most_frequent_char($array)
     }
     
     natsort($frequency);
-    //print_r($frequency);
+//    print_r($frequency);
     end($frequency);
     while(in_array(key($frequency), $guessed_chars))
     {
